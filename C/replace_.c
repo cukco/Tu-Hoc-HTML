@@ -51,4 +51,5 @@ int main(){
         scanf("%d",&luuso[i]);
     }
     count(n,luuso);
+    printf("\n");
 }
