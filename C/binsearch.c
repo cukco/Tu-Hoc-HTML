@@ -18,5 +18,5 @@ int main(){
     for(int i=0;i<n;i++){
         scanf("%d",&a[i]);
     }
-    binsearch(a,23,1,0,n-1);
+    binsearch(a,2,1,0,n-1);
 }
