@@ -1,32 +1,22 @@
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
-long long muoi(int x){
-    long sum=1;
-    if(x==0) return sum;
-    else{
-        for(int i=1;i<=x;i++) sum*=10;
-    }
-    return sum;
-}
 struct hash{
-    char id[11];
-    int money;
+    char id[21];
+    long long money;
     struct hash *next;
 };
 typedef struct hash* hash;
-int returnindex(char str[]){
-    long long sum=0;
-    long long somu=0;
-    for(int i=strlen(str)-1;i>0;i--){
-        sum+=(str[i]-'0')*muoi(somu);
-        somu++;
+unsigned int returnindex(char str[]){
+    unsigned int hash=0;
+    while(*str){
+        hash=(hash*31)+(*str++);
     }
-    return sum%200007;
+    return hash%200007;
 }
 hash array[200007];
 hash find(char id[]){
-    int index=returnindex(id);
+    unsigned int index=returnindex(id);
     hash p=array[index];
     while(p!=NULL){
         if(strcmp(p->id,id)==0){
@@ -37,7 +27,7 @@ hash find(char id[]){
     return p;
 }
 void insert(char id[],int tien){
-    int index=returnindex(id);
+    unsigned int index=returnindex(id);
     hash p=find(id);
     if(p==NULL){
         hash tmp=(hash)malloc(sizeof(struct hash));
@@ -52,8 +42,8 @@ void insert(char id[],int tien){
 }
 int main(){
     while(1){
-        char from[11];
-        char to[11];
+        char from[21];
+        char to[21];
         int money;
         char time[9];
         char atm[5];
@@ -64,10 +54,12 @@ int main(){
     }
     while(1){
         char cmd[30];
-        char id[11];
+        char id[21];
         scanf("%s",cmd);
         if(strcmp(cmd,"#")==0) break;
         scanf("%s",id);
-        printf("%d\n",find(id)->money);
+        hash tmp=find(id);
+        if(tmp!=NULL) printf("%lld\n",find(id)->money);
+        else printf("0\n");
     }
 }
